@@ -11,7 +11,11 @@ namespace Assignment4
 {
     public class DataService
     {
-        
+        public Category GetCategory(int id)
+        {
+            using var db = new NorthwindContext();
+            return db.Categories.Find(id);
+        }
 
     }
 
