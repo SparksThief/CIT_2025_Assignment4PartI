@@ -108,7 +108,6 @@ namespace Assignment4.Tests
                 }
         */
 
-        /*
         [Fact]
         public void GetProduct_ValidId_ReturnsProductWithCategory()
         {
