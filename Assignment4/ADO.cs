@@ -1,17 +1,23 @@
 using System;
 using Npgsql;
 
-var connectionString = "Host=localhost;Username=postgres;Password=admin;Database=Northwind";
-
-var connection = new NpgsqlConnection(connectionString);
-connection.Open();
-
-var cmd = new NpgsqlCommand();
-cmd.Connection = connection;
-cmd.CommandText = "SELECT * FROM categories";
-
-var reader = cmd.ExecuteReader();
-while (reader.Read())
+namespace Assignment4
 {
-    Console.WriteLine($"reader.GetInt32(0) {reader.GetInt32(0)}");
+    public static class ADO
+    {
+        public static void PrintCategories()
+        {
+            var connectionString = "Host=localhost;Username=postgres;Password=admin;Database=Northwind";
+
+            using var connection = new NpgsqlConnection(connectionString);
+            connection.Open();
+
+            using var cmd = new NpgsqlCommand("SELECT * FROM categories", connection);
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                Console.WriteLine($"{reader.GetInt32(0)} {reader.GetString(1)}");
+            }
+        }
+    }
 }
