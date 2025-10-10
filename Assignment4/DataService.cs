@@ -11,6 +11,13 @@ namespace Assignment4
 {
     public class DataService
     {
+        // Return all categories from the database
+        public System.Collections.Generic.List<Category> GetCategories()
+        {
+            using var db = new NorthwindContext();
+            return db.Categories.ToList();
+        }
+
         public Category GetCategory(int id)
         {
             using var db = new NorthwindContext();

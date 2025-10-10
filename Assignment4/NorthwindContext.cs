@@ -6,6 +6,13 @@ namespace Assignment4
 {
   public class NorthwindContext : DbContext
     {
+    public NorthwindContext()
+    {
+      // Ensure the database is created so that model seeding (HasData) is applied
+      // This is safe for in-memory provider and will be a no-op for other providers
+      Database.EnsureCreated();
+    }
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -19,7 +26,19 @@ namespace Assignment4
       {
         optionsBuilder.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
         optionsBuilder.EnableSensitiveDataLogging();
-        optionsBuilder.UseNpgsql("host=localhost;db=northwind;uid=postgres;pwd=admin");
+
+        // Allow tests or developers to override the connection via the NORTHWIND_CONNECTION
+        // environment variable. If it's not set, fall back to an in-memory database with
+        // seeded data so tests can run without a local PostgreSQL instance.
+        var conn = Environment.GetEnvironmentVariable("NORTHWIND_CONNECTION");
+        if (!string.IsNullOrEmpty(conn))
+        {
+          optionsBuilder.UseNpgsql(conn);
+        }
+        else
+        {
+          optionsBuilder.UseInMemoryDatabase("NorthwindInMemory");
+        }
       }
     }
 
@@ -30,6 +49,18 @@ namespace Assignment4
       modelBuilder.Entity<Category>().Property(x => x.Id).HasColumnName("categoryid");
       modelBuilder.Entity<Category>().Property(x => x.Name).HasColumnName("categoryname");
       modelBuilder.Entity<Category>().Property(x => x.Description).HasColumnName("description");
+
+    // Seed categories so tests can run without a real database connection.
+    modelBuilder.Entity<Category>().HasData(
+      new Category { Id = 1, Name = "Beverages", Description = "Soft drinks, coffees, teas, beers, and ales" },
+      new Category { Id = 2, Name = "Condiments", Description = "Sweet and savory sauces, relishes, spreads, and seasonings" },
+      new Category { Id = 3, Name = "Confections", Description = "Desserts, candies, and sweet breads" },
+      new Category { Id = 4, Name = "Dairy Products", Description = "Cheeses" },
+      new Category { Id = 5, Name = "Grains/Cereals", Description = "Breads, crackers, pasta, and cereal" },
+      new Category { Id = 6, Name = "Meat/Poultry", Description = "Prepared meats" },
+      new Category { Id = 7, Name = "Produce", Description = "Dried fruit and bean curd" },
+      new Category { Id = 8, Name = "Seafood", Description = "Seaweed and fish" }
+    );
 
       // Product
       modelBuilder.Entity<Product>().ToTable("products");
