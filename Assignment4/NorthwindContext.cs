@@ -1,5 +1,5 @@
 using System;
-
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Assignment4
@@ -26,11 +26,15 @@ namespace Assignment4
     {
       // Category
       modelBuilder.Entity<Category>().ToTable("categories");
-      modelBuilder.Entity<Category>().Property(x => x.Id).HasColumnName("categoryid");
+      modelBuilder.Entity<Category>().HasKey(x => x.Id);
+      modelBuilder.Entity<Category>().Property(x => x.Id)
+        .HasColumnName("categoryid")
+        .ValueGeneratedOnAdd();
       modelBuilder.Entity<Category>().Property(x => x.Name).HasColumnName("categoryname");
       modelBuilder.Entity<Category>().Property(x => x.Description).HasColumnName("description");
 
       modelBuilder.Entity<Customers>().ToTable("customers");
+      modelBuilder.Entity<Customers>().HasKey(x => x.Id);
       modelBuilder.Entity<Customers>().Property(x => x.Id).HasColumnName("customerid");
       modelBuilder.Entity<Customers>().Property(x => x.Name).HasColumnName("companyname");
       modelBuilder.Entity<Customers>().Property(x => x.Title).HasColumnName("contacttitle");
@@ -43,6 +47,7 @@ namespace Assignment4
 
       // Employees
       modelBuilder.Entity<Employees>().ToTable("employees");
+      modelBuilder.Entity<Employees>().HasKey(x => x.Id);
       modelBuilder.Entity<Employees>().Property(x => x.Id).HasColumnName("employeeid");
       modelBuilder.Entity<Employees>().Property(x => x.LastName).HasColumnName("lastname");
       modelBuilder.Entity<Employees>().Property(x => x.FirstName).HasColumnName("firstname");
@@ -56,6 +61,7 @@ namespace Assignment4
 
       // Orders
       modelBuilder.Entity<Orders>().ToTable("orders");
+      modelBuilder.Entity<Orders>().HasKey(x => x.Id);
       modelBuilder.Entity<Orders>().Property(x => x.OrdersId).HasColumnName("orderid");
       modelBuilder.Entity<Orders>().Property(x => x.CustomerId).HasColumnName("customerid");
       modelBuilder.Entity<Orders>().Property(x => x.EmployeeId).HasColumnName("employeeid");
@@ -71,6 +77,8 @@ namespace Assignment4
 
       // OrderDetail
       modelBuilder.Entity<OrderDetail>().ToTable("orderdetails");
+      modelBuilder.Entity<OrderDetail>().HasKey(x => x.Id);
+      modelBuilder.Entity<OrderDetail>().Property(x => x.Id).HasColumnName("id");
       modelBuilder.Entity<OrderDetail>().Property(x => x.OrderId).HasColumnName("orderid");
       modelBuilder.Entity<OrderDetail>().Property(x => x.ProductId).HasColumnName("productid");
       modelBuilder.Entity<OrderDetail>().Property(x => x.UnitPrice).HasColumnName("unitprice");
@@ -79,6 +87,7 @@ namespace Assignment4
 
       // Product
       modelBuilder.Entity<Product>().ToTable("products");
+      modelBuilder.Entity<Product>().HasKey(x => x.Id);
       modelBuilder.Entity<Product>().Property(x => x.Id).HasColumnName("productid");
       modelBuilder.Entity<Product>().Property(x => x.Name).HasColumnName("productname");
       modelBuilder.Entity<Product>().Property(x => x.SupplierId).HasColumnName("supplierid");
@@ -87,6 +96,7 @@ namespace Assignment4
 
       // Suppliers
       modelBuilder.Entity<Suppliers>().ToTable("suppliers");
+      modelBuilder.Entity<Suppliers>().HasKey(x => x.Id);
       modelBuilder.Entity<Suppliers>().Property(x => x.Id).HasColumnName("supplierid");
       modelBuilder.Entity<Suppliers>().Property(x => x.CompanyName).HasColumnName("companyname");
       modelBuilder.Entity<Suppliers>().Property(x => x.ContactName).HasColumnName("contactname");
@@ -97,6 +107,8 @@ namespace Assignment4
       modelBuilder.Entity<Suppliers>().Property(x => x.Country).HasColumnName("country");
       modelBuilder.Entity<Suppliers>().Property(x => x.Phone).HasColumnName("phone");
       modelBuilder.Entity<Suppliers>().Property(x => x.Fax).HasColumnName("fax");
+
+  
     }
         
     }

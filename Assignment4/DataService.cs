@@ -27,7 +27,8 @@ namespace Assignment4
         public Category CreateCategory(string name, string description)
         {
             using var db = new NorthwindContext();
-            var category = new Category { Name = name, Description = description, Id = 0};
+            var nextId = (db.Categories.Max(c => (int?)c.Id) ?? 0) + 1;
+            var category = new Category { Id = nextId, Name = name, Description = description };
             db.Categories.Add(category);
             db.SaveChanges();
             return category;
