@@ -24,6 +24,26 @@ namespace Assignment4
             return db.Categories.Find(id);
         }
 
+        public Category CreateCategory(string name, string description)
+        {
+            using var db = new NorthwindContext();
+            var category = new Category { Name = name, Description = description };
+            db.Categories.Add(category);
+            db.SaveChanges();
+            return category;
+        }
+
+        public Category DeleteCategory(int id)
+        {
+            using var db = new NorthwindContext();
+            var category = db.Categories.Find(id);
+            if (category == null)
+                return null;
+            db.Categories.Remove(category);
+            db.SaveChanges();
+            return category;
+        }
+
     }
 
     public class Category

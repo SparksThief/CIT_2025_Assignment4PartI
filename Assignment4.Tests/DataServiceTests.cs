@@ -34,7 +34,7 @@ namespace Assignment4.Tests
             Assert.Equal("Beverages", category.Name);
         } 
 
-    /* [Fact]
+     [Fact]
         public void CreateCategory_ValidData_CreteCategoryAndRetunsNewObject()
         {
             var service = new DataService();
@@ -47,7 +47,7 @@ namespace Assignment4.Tests
             service.DeleteCategory(category.Id);
         } 
 
-     [Fact]
+     /* [Fact]
         public void DeleteCategory_ValidId_RemoveTheCategory()
         {
             var service = new DataService();
