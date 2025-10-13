@@ -45,25 +45,4 @@ namespace Assignment4
         }
 
     }
-
-    public class Order
-    {
-        public int Id { get; set; }
-        public DateTime OrderDate { get; set; }
-        public string ShipName { get; set; }
-        public string ShipCity { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; }
-    }
-    
-    public class OrderDetail
-    {
-        public int OrderId { get; set; }
-        public int ProductId { get; set; }
-        public double UnitPrice { get; set; }
-        public double Quantity { get; set; }
-        public double Discount { get; set; }
-        public Order Order { get; set; }
-        public Product Product { get; set; }
-
-    }
 }
