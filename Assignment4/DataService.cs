@@ -27,7 +27,7 @@ namespace Assignment4
         public Category CreateCategory(string name, string description)
         {
             using var db = new NorthwindContext();
-            var category = new Category { Name = name, Description = description };
+            var category = new Category { Name = name, Description = description, Id = 0};
             db.Categories.Add(category);
             db.SaveChanges();
             return category;
@@ -44,24 +44,6 @@ namespace Assignment4
             return category;
         }
 
-    }
-
-    public class Category
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-    }
-
-    public class Product
-    {
-        public int Id { get; set; }
-        public string name { get; set; }
-        public double UnitPrice { get; set; }
-        public string QuantityPerUnit { get; set; }
-        public int UnitsInStock { get; set; }
-        public Category Category { get; set; }
-        public int CategoryId { get; set; }
     }
 
     public class Order
