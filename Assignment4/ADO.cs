@@ -7,7 +7,7 @@ namespace Assignment4
     {
         public static void PrintCategories()
         {
-            var connectionString = "host=localhost;db=northwind;uid=postgres;pwd=admin";
+            var connectionString = "host=localhost;db=northwind;uid=postgres;pwd=@ccess93";
 
             using var connection = new NpgsqlConnection(connectionString);
             connection.Open();
