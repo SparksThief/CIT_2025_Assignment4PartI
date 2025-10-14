@@ -61,8 +61,8 @@ namespace Assignment4
 
       // Orders
       modelBuilder.Entity<Order>().ToTable("orders");
-      modelBuilder.Entity<Order>().HasKey(x => x.Id);
-      modelBuilder.Entity<Order>().Property(x => x.OrdersId).HasColumnName("orderid");
+      modelBuilder.Entity<Order>().HasKey(x => x.OrderId);
+      modelBuilder.Entity<Order>().Property(x => x.OrderId).HasColumnName("orderid");
       modelBuilder.Entity<Order>().Property(x => x.CustomerId).HasColumnName("customerid");
       modelBuilder.Entity<Order>().Property(x => x.EmployeeId).HasColumnName("employeeid");
       modelBuilder.Entity<Order>().Property(x => x.OrderDate).HasColumnName("orderdate");
@@ -77,8 +77,7 @@ namespace Assignment4
 
       // OrderDetails
       modelBuilder.Entity<OrderDetails>().ToTable("orderdetails");
-      modelBuilder.Entity<OrderDetails>().HasKey(x => x.Id);
-      modelBuilder.Entity<OrderDetails>().Property(x => x.Id).HasColumnName("id");
+      modelBuilder.Entity<OrderDetails>().HasKey(x => new { x.OrderId, x.ProductId });
       modelBuilder.Entity<OrderDetails>().Property(x => x.OrderId).HasColumnName("orderid");
       modelBuilder.Entity<OrderDetails>().Property(x => x.ProductId).HasColumnName("productid");
       modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
@@ -93,6 +92,8 @@ namespace Assignment4
       modelBuilder.Entity<Product>().Property(x => x.SupplierId).HasColumnName("supplierid");
       modelBuilder.Entity<Product>().Property(x => x.CategoryId).HasColumnName("categoryid");
       modelBuilder.Entity<Product>().Property(x => x.QuantityPerUnit).HasColumnName("quantityperunit");
+      modelBuilder.Entity<Product>().Property(x => x.UnitPrice).HasColumnName("unitprice");
+      modelBuilder.Entity<Product>().Property(x => x.UnitsInStock).HasColumnName("unitsinstock");
 
       // Suppliers
       modelBuilder.Entity<Suppliers>().ToTable("suppliers");

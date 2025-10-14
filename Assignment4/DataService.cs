@@ -79,19 +79,39 @@ namespace Assignment4
             using var db = new NorthwindContext();
             return db.Products
                 .Where(p => p.CategoryId == categoryid)
-                .Include(p => p.Category)
-                .OrderBy(p => p.Name)
+                .Include (p => p.Category)
+                .OrderBy(c => c.Id)
+                
                 .ToList();
 
+        }
+
+        public int? GetCategoryIdByName(string categoryName)
+        {
+            using var db = new NorthwindContext();
+            return db.Categories
+                .Where(c => c.Name == categoryName)
+                .Select(c => (int?)c.Id)
+                .FirstOrDefault();
+        }
+
+        public System.Collections.Generic.List<Product> GetProductsByCategoryName(string categoryName)
+        {
+            var categoryId = GetCategoryIdByName(categoryName);
+            if (categoryId == null)
+            {
+                return new System.Collections.Generic.List<Product>();
+            }
+            return GetProductByCategory(categoryId.Value);
         }
 
         public System.Collections.Generic.List<Product> GetProductByName(string name)
         {
             using var db = new NorthwindContext();
             return db.Products
-                .Where(p => p.Id == p.Id && p.Name.Contains(name))
+                .Where(p => p.Name.Contains(name))
                 .Include(p => p.Category)
-                .OrderBy(p => p.Name)
+                .OrderBy(p => p.Id)
                 .ToList();
 
         }
@@ -100,10 +120,11 @@ namespace Assignment4
         {
             using var db = new NorthwindContext();
             return db.Orders
+                .Where(o => o.OrderId == id) 
                 .Include(o => o.OrderDetails)
-                .ThenInclude(od => od.Product)
-                .ThenInclude(p => p.Category)
-                .FirstOrDefault(o => o.Id == id);
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.Category)
+                .FirstOrDefault();
         }
 
         public System.Collections.Generic.List<Order> GetOrders()
@@ -111,8 +132,9 @@ namespace Assignment4
             using var db = new NorthwindContext();
             return db.Orders
                 .Include(o => o.OrderDetails)
-                .ThenInclude(od => od.Product)
-                .ThenInclude(p => p.Category)
+                    .ThenInclude(od => od.Product)
+                        .ThenInclude(p => p.Category)
+                    .OrderBy(o => o.OrderId)         
                 .ToList();
         }
 
@@ -122,7 +144,8 @@ namespace Assignment4
             return db.OrderDetails
                 .Where(od => od.OrderId == orderid)
                 .Include(od => od.Product)
-                .OrderBy(od => od.Product.Name)
+                    .ThenInclude(p => p.Category)
+                .OrderBy(od => od.ProductId)
                 .ToList();
         }
 
@@ -132,10 +155,10 @@ namespace Assignment4
             return db.OrderDetails
                 .Where(od => od.ProductId == productid)
                 .Include(od => od.Order)
-                .OrderBy(od => od.Order.OrderDate)
+                .OrderByDescending(od => od.UnitPrice)
+                .ThenBy(od => od.Order.OrderDate)
+                .ThenBy(od => od.OrderId)
                 .ToList();
         }
-    
-
     }    
 }

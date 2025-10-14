@@ -122,7 +122,7 @@ namespace Assignment4.Tests
             Assert.Equal(12, products.Count);
             Assert.Equal("Chai", products.First().Name);
             Assert.Equal("Beverages", products.First().CategoryName);
-            Assert.Equal("Lakkalik��ri", products.Last().Name);
+            Assert.Equal("Lakkalikööri", products.Last().Name);
         }
 
         [Fact]
@@ -131,7 +131,7 @@ namespace Assignment4.Tests
             var service = new DataService();
             var products = service.GetProductByName("em");
             Assert.Equal(4, products.Count);
-            Assert.Equal("NuNuCa Nu�-Nougat-Creme", products.First().ProductName);
+            Assert.Equal("NuNuCa Nuß-Nougat-Creme", products.First().ProductName);
             Assert.Equal("Flotemysost", products.Last().ProductName);
         }
 
@@ -153,10 +153,10 @@ namespace Assignment4.Tests
         public void GetOrder_ValidId_ReturnsCompleteOrder()
         {
             var service = new DataService();
-            var order = service.GetOrder(10248);
-            Assert.Equal(3, order.OrderDetails.Count);
-            Assert.Equal("Queso Cabrales", order.OrderDetails.First().Product.Name);
-            Assert.Equal("Dairy Products", order.OrderDetails.First().Product.Category.Name);
+            var Order = service.GetOrder(10248);
+            Assert.Equal(3, Order.OrderDetails.Count);
+            Assert.Equal("Queso Cabrales", Order.OrderDetails.First().Product.Name);
+            Assert.Equal("Dairy Products", Order.OrderDetails.First().Product.Category.Name);
         }
 
         [Fact]
