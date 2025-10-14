@@ -155,9 +155,6 @@ namespace Assignment4
             return db.OrderDetails
                 .Where(od => od.ProductId == productid)
                 .Include(od => od.Order)
-                .OrderByDescending(od => od.UnitPrice)
-                .ThenBy(od => od.Order.OrderDate)
-                .ThenBy(od => od.OrderId)
                 .ToList();
         }
     }    
