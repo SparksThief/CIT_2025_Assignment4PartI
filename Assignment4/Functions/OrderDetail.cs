@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assignment4
 {
-  public class OrderDetail
+  public class OrderDetails
   {
     public int Id { get; set; }
     public int OrderId { get; set; }
@@ -14,5 +14,7 @@ namespace Assignment4
     public decimal UnitPrice { get; set; }
     public int Quantity { get; set; }
     public float Discount { get; set; }
+    public Product Product { get; set; }
+    public Order Order { get; set; }
     }
 }

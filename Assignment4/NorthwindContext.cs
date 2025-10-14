@@ -10,8 +10,8 @@ namespace Assignment4
     public DbSet<Customers> Customers { get; set; }
     public DbSet<Employees> Employees { get; set; }
     public DbSet<Product> Products { get; set; }
-    public DbSet<Orders> Orders { get; set; }
-    public DbSet<OrderDetail> OrderDetails { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<OrderDetails> OrderDetails { get; set; }
     public DbSet<Suppliers> Suppliers { get; set; }
 
   
@@ -60,30 +60,30 @@ namespace Assignment4
       modelBuilder.Entity<Employees>().Property(x => x.Country).HasColumnName("country");
 
       // Orders
-      modelBuilder.Entity<Orders>().ToTable("orders");
-      modelBuilder.Entity<Orders>().HasKey(x => x.Id);
-      modelBuilder.Entity<Orders>().Property(x => x.OrdersId).HasColumnName("orderid");
-      modelBuilder.Entity<Orders>().Property(x => x.CustomerId).HasColumnName("customerid");
-      modelBuilder.Entity<Orders>().Property(x => x.EmployeeId).HasColumnName("employeeid");
-      modelBuilder.Entity<Orders>().Property(x => x.OrderDate).HasColumnName("orderdate");
-      modelBuilder.Entity<Orders>().Property(x => x.RequiredDate).HasColumnName("requireddate");
-      modelBuilder.Entity<Orders>().Property(x => x.ShippedDate).HasColumnName("shippeddate");
-      modelBuilder.Entity<Orders>().Property(x => x.Freight).HasColumnName("freight");
-      modelBuilder.Entity<Orders>().Property(x => x.ShipName).HasColumnName("shipname");
-      modelBuilder.Entity<Orders>().Property(x => x.ShipAddress).HasColumnName("shipaddress");
-      modelBuilder.Entity<Orders>().Property(x => x.ShipCity).HasColumnName("shipcity");
-      modelBuilder.Entity<Orders>().Property(x => x.ShipPostalCode).HasColumnName("shippostalcode");
-      modelBuilder.Entity<Orders>().Property(x => x.ShipCountry).HasColumnName("shipcountry");
+      modelBuilder.Entity<Order>().ToTable("orders");
+      modelBuilder.Entity<Order>().HasKey(x => x.Id);
+      modelBuilder.Entity<Order>().Property(x => x.OrdersId).HasColumnName("orderid");
+      modelBuilder.Entity<Order>().Property(x => x.CustomerId).HasColumnName("customerid");
+      modelBuilder.Entity<Order>().Property(x => x.EmployeeId).HasColumnName("employeeid");
+      modelBuilder.Entity<Order>().Property(x => x.OrderDate).HasColumnName("orderdate");
+      modelBuilder.Entity<Order>().Property(x => x.RequiredDate).HasColumnName("requireddate");
+      modelBuilder.Entity<Order>().Property(x => x.ShippedDate).HasColumnName("shippeddate");
+      modelBuilder.Entity<Order>().Property(x => x.Freight).HasColumnName("freight");
+      modelBuilder.Entity<Order>().Property(x => x.ShipName).HasColumnName("shipname");
+      modelBuilder.Entity<Order>().Property(x => x.ShipAddress).HasColumnName("shipaddress");
+      modelBuilder.Entity<Order>().Property(x => x.ShipCity).HasColumnName("shipcity");
+      modelBuilder.Entity<Order>().Property(x => x.ShipPostalCode).HasColumnName("shippostalcode");
+      modelBuilder.Entity<Order>().Property(x => x.ShipCountry).HasColumnName("shipcountry");
 
-      // OrderDetail
-      modelBuilder.Entity<OrderDetail>().ToTable("orderdetails");
-      modelBuilder.Entity<OrderDetail>().HasKey(x => x.Id);
-      modelBuilder.Entity<OrderDetail>().Property(x => x.Id).HasColumnName("id");
-      modelBuilder.Entity<OrderDetail>().Property(x => x.OrderId).HasColumnName("orderid");
-      modelBuilder.Entity<OrderDetail>().Property(x => x.ProductId).HasColumnName("productid");
-      modelBuilder.Entity<OrderDetail>().Property(x => x.UnitPrice).HasColumnName("unitprice");
-      modelBuilder.Entity<OrderDetail>().Property(x => x.Quantity).HasColumnName("quantity");
-      modelBuilder.Entity<OrderDetail>().Property(x => x.Discount).HasColumnName("discount");
+      // OrderDetails
+      modelBuilder.Entity<OrderDetails>().ToTable("orderdetails");
+      modelBuilder.Entity<OrderDetails>().HasKey(x => x.Id);
+      modelBuilder.Entity<OrderDetails>().Property(x => x.Id).HasColumnName("id");
+      modelBuilder.Entity<OrderDetails>().Property(x => x.OrderId).HasColumnName("orderid");
+      modelBuilder.Entity<OrderDetails>().Property(x => x.ProductId).HasColumnName("productid");
+      modelBuilder.Entity<OrderDetails>().Property(x => x.UnitPrice).HasColumnName("unitprice");
+      modelBuilder.Entity<OrderDetails>().Property(x => x.Quantity).HasColumnName("quantity");
+      modelBuilder.Entity<OrderDetails>().Property(x => x.Discount).HasColumnName("discount");
 
       // Product
       modelBuilder.Entity<Product>().ToTable("products");

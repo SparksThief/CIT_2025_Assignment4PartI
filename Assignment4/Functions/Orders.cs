@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assignment4
 {
-    public class Orders
+    public class Order
     {
+        public List<OrderDetails> OrderDetails { get; set; }
         public int Id { get; set; }
         public int OrdersId { get; set; }
         public int CustomerId { get; set; }

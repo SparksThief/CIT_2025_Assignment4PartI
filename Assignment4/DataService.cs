@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -34,16 +35,107 @@ namespace Assignment4
             return category;
         }
 
-        public Category DeleteCategory(int id)
+        public bool DeleteCategory(int id)
         {
             using var db = new NorthwindContext();
             var category = db.Categories.Find(id);
             if (category == null)
-                return null;
+            {
+                return false;
+            }
             db.Categories.Remove(category);
             db.SaveChanges();
-            return category;
+            return true;
+        }
+        public bool UpdateCategory(int id, string name, string description)
+        {
+            using var db = new NorthwindContext();
+            var category = db.Categories.Find(id);
+            if (category == null)
+            {
+                return false;
+            }
+            category.Name = name;
+            category.Description = description;
+            db.SaveChanges();
+            return true;
         }
 
-    }
+        public System.Collections.Generic.List<Product> GetProducts()
+        {
+            using var db = new NorthwindContext();
+            return
+                db.Products.Include(p => p.Category).ToList();
+        }
+        public Product GetProduct(int id)
+        {
+            using var db = new NorthwindContext();
+            return db.Products.Include(p => p.Category).FirstOrDefault(p => p.Id == id);
+
+        }
+
+        public System.Collections.Generic.List<Product> GetProductByCategory(int categoryid)
+        {
+            using var db = new NorthwindContext();
+            return db.Products
+                .Where(p => p.CategoryId == categoryid)
+                .Include(p => p.Category)
+                .OrderBy(p => p.Name)
+                .ToList();
+
+        }
+
+        public System.Collections.Generic.List<Product> GetProductByName(string name)
+        {
+            using var db = new NorthwindContext();
+            return db.Products
+                .Where(p => p.Id == p.Id && p.Name.Contains(name))
+                .Include(p => p.Category)
+                .OrderBy(p => p.Name)
+                .ToList();
+
+        }
+
+        public Order GetOrder(int id)
+        {
+            using var db = new NorthwindContext();
+            return db.Orders
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .ThenInclude(p => p.Category)
+                .FirstOrDefault(o => o.Id == id);
+        }
+
+        public System.Collections.Generic.List<Order> GetOrders()
+        {
+            using var db = new NorthwindContext();
+            return db.Orders
+                .Include(o => o.OrderDetails)
+                .ThenInclude(od => od.Product)
+                .ThenInclude(p => p.Category)
+                .ToList();
+        }
+
+        public System.Collections.Generic.List<OrderDetails> GetOrderDetailsByOrderId(int orderid)
+        {
+            using var db = new NorthwindContext();
+            return db.OrderDetails
+                .Where(od => od.OrderId == orderid)
+                .Include(od => od.Product)
+                .OrderBy(od => od.Product.Name)
+                .ToList();
+        }
+
+        public System.Collections.Generic.List<OrderDetails> GetOrderDetailsByProductId(int productid)
+        {
+            using var db = new NorthwindContext();
+            return db.OrderDetails
+                .Where(od => od.ProductId == productid)
+                .Include(od => od.Order)
+                .OrderBy(od => od.Order.OrderDate)
+                .ToList();
+        }
+    
+
+    }    
 }
