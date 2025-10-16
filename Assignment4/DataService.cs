@@ -184,8 +184,6 @@ namespace Assignment4
         /// <summary>
         /// Retrieves all order details for a specific product (order history for that product).
         /// Includes the Order information for each order detail.
-        /// Sorted by UnitPrice descending, then by OrderDate - this ordering ensures
-        /// the most expensive orders appear first, with ties broken by date.
         /// </summary>
         /// <param name="productId">The product ID to retrieve order history for</param>
         /// <returns>List of order details with Order loaded, ordered by price (desc) then date (asc)</returns>
@@ -193,8 +191,6 @@ namespace Assignment4
             _context.OrderDetails
                     .Where(od => od.ProductId == productId)
                     .Include(od => od.Order)
-                    .OrderByDescending(od => od.UnitPrice)  // Highest price first
-                    .ThenBy(od => od.Order.OrderDate)       // Then by oldest date
                     .ToList();
 
         #endregion
