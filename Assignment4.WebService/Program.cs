@@ -1,12 +1,10 @@
 using Assignment4;
 using Microsoft.EntityFrameworkCore;
-using WebServiceLayer;
-using DataServiceLayer;
 using Mapster;
 
 namespace WebServiceLayer;
 
-public class ControllerBase
+public class Program
 {
     public static void Main(string[] args)
     {

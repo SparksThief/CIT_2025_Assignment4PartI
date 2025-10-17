@@ -1,6 +1,22 @@
 @Assignment4.WebService_HostAddress = http://localhost:5045
 
-GET {{Assignment4.WebService_HostAddress}}/weatherforecast/
+### Get all categories
+GET http://localhost:5045/api/categories
 Accept: application/json
 
-###
+### Get category by ID
+GET http://localhost:5045/api/categories/1
+Accept: application/json
+
+### Create category
+POST http://localhost:5045/api/categories
+Content-Type: application/json
+
+{
+  "name": "Test Category",
+  "description": "Test Description"
+}
+
+### Get products by name
+GET http://localhost:5045/api/product?name=chai
+Accept: application/json
