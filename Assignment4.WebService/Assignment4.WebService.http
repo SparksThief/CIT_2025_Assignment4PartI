@@ -1,14 +1,14 @@
 @Assignment4.WebService_HostAddress = http://localhost:5045
 
-### Get all categories
+// Get all categories
 GET http://localhost:5045/api/categories
 Accept: application/json
 
-### Get category by ID
+// Get category by ID
 GET http://localhost:5045/api/categories/1
 Accept: application/json
 
-### Create category
+// Create category
 POST http://localhost:5045/api/categories
 Content-Type: application/json
 
@@ -17,6 +17,6 @@ Content-Type: application/json
   "description": "Test Description"
 }
 
-### Get products by name
+// Get products by name
 GET http://localhost:5045/api/product?name=chai
 Accept: application/json

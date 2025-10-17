@@ -4,7 +4,7 @@ using Assignment4;
 
 namespace WebServiceLayer.Controllers;
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/products")]
 public class ProductController : ControllerBase
 {
   private readonly IDataService _service;
@@ -23,7 +23,11 @@ public class ProductController : ControllerBase
       product.QuantityPerUnit,
       product.UnitPrice,
       product.UnitsInStock,
-      CategoryName = product.Category?.Name
+      Category = product.Category != null ? new
+      {
+        product.Category.Id,
+        product.Category.Name
+      } : null
     });
   }
 
@@ -31,26 +35,32 @@ public class ProductController : ControllerBase
   public IActionResult GetByCategory(int id)
   {
     var products = _service.GetProductByCategory(id);
-    if (products.Count == 0) return NotFound();
     var dto = products.Select(p => new ProductWithCategoryDto
     {
       Name = p.Name,
       CategoryName = p.Category?.Name
     }).ToList();
+    
+    if (dto.Count == 0)
+      return NotFound(dto);
+    
     return Ok(dto);
   }
-  [HttpGet]
-  public IActionResult GetByName([FromQuery] string name)
+  [HttpGet("name/{name}")]
+  public IActionResult GetByName(string name)
   {
     if (string.IsNullOrWhiteSpace(name))
-      return BadRequest("Query parameter 'name' is required.");
+      return BadRequest("Name parameter is required.");
     var products = _service.GetProductByName(name);
-    if (products.Count == 0) return NotFound();
     var dto = products.Select(p => new ProductByNameDto
     {
       ProductName = p.Name,
       CategoryName = p.Category?.Name
     }).ToList();
+    
+    if (dto.Count == 0)
+      return NotFound(dto);
+    
     return Ok(dto);
   }
 }
