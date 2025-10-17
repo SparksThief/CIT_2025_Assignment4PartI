@@ -1,0 +1,68 @@
+{
+  "vertices": {
+    "Category": {
+      "x": 0,
+      "y": 659,
+      "width": 280,
+      "height": 100
+    },
+    "Product": {
+      "x": 0,
+      "y": 301,
+      "width": 280,
+      "height": 220
+    },
+    "Order": {
+      "x": 460,
+      "y": 320,
+      "width": 280,
+      "height": 296
+    },
+    "OrderDetails": {
+      "x": 165,
+      "y": 0,
+      "width": 280,
+      "height": 163
+    }
+  },
+  "edges": [
+    {
+      "source": "Product",
+      "target": "Category",
+      "points": [
+        {
+          "x": 140,
+          "y": 571
+        },
+        {
+          "x": 140,
+          "y": 647
+        }
+      ]
+    },
+    {
+      "source": "Order",
+      "target": "OrderDetails",
+      "points": []
+    },
+    {
+      "source": "OrderDetails",
+      "target": "Product",
+      "points": [
+        {
+          "x": 215,
+          "y": 175
+        },
+        {
+          "x": 140,
+          "y": 251
+        }
+      ]
+    },
+    {
+      "source": "OrderDetails",
+      "target": "Order",
+      "points": []
+    }
+  ]
+}
